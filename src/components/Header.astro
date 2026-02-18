@@ -7,7 +7,7 @@ const current = Astro.url.pathname;
     <a class:list={["nav-link", current === "/" && "active"]} href="/">Home</a>
     <a class:list={["nav-link", current.startsWith("/ideas") && "active"]} href="/ideas">Ideas</a>
     <a class:list={["nav-link", current.startsWith("/articles") && "active"]} href="/articles">Articles</a>
-    <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle dark mode">☾</button>
+    <!-- <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle dark mode">☾</button> -->
     </nav>
 </header>
 

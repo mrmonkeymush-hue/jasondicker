@@ -143,32 +143,31 @@ a:hover{
   background: color-mix(in srgb, var(--bg) 72%, transparent);
 }
 
-.site-header-inner {
+.site-header-inner{
   max-width: 980px;
   margin: 0 auto;
   padding: 14px 22px;
+
+  display: grid;
+  grid-template-columns: auto 1fr; /* brand, then flexible space */
+  align-items: center;
+  column-gap: 22px;
+}
+
+.nav{
+  justify-self: end;              /* forces nav to the right edge */
   display: flex;
   align-items: center;
-  justify-content: space-between; /* brand left, nav right */
   gap: 18px;
-  min-width: 0;
+  flex-wrap: wrap;
 }
+
 
 .brand-link {
   font-weight: 800;
   font-size: 18px;
   letter-spacing: -0.02em;
   white-space: nowrap;
-}
-
-.nav {
-  margin-left: auto;              /* forces nav to the right */
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;                /* prevents bunching on small screens */
-  justify-content: flex-end;
 }
 
 

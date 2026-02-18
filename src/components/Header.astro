@@ -2,28 +2,28 @@
 const current = Astro.url.pathname;
 ---
 
+
 <header class="site-header">
   <div class="site-header-inner">
-    <a href="/" class="brand-link">Your Name</a>
+    <a href="/" class="brand-link">Jason P. Dicker</a>
 
     <nav class="nav">
       <a class:list={["nav-link", current === "/" && "active"]} href="/">Home</a>
       <a class:list={["nav-link", current.startsWith("/ideas") && "active"]} href="/ideas">Ideas</a>
 
       <div class="dropdown">
-        <a class:list={["nav-link", current.startsWith("/articles") && "active"]} href="/articles">
-          Articles
-        </a>
+        <a class:list={["nav-link", current.startsWith("/articles") && "active"]} href="/articles">Articles</a>
         <div class="dropdown-menu">
           <a href="/articles">All Articles</a>
           <a href="/articles/tags">Tags</a>
         </div>
       </div>
 
-      <button id="themeToggle" class="theme-btn" type="button">☾</button>
+      <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle dark mode">☾</button>
     </nav>
   </div>
 </header>
+
 
 
 <script is:inline>

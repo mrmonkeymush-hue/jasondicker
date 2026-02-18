@@ -7,18 +7,16 @@ const current = Astro.url.pathname;
     <a class:list={["nav-link", current === "/" && "active"]} href="/">Home</a>
     <a class:list={["nav-link", current.startsWith("/ideas") && "active"]} href="/ideas">Ideas</a>
     <a class:list={["nav-link", current.startsWith("/articles") && "active"]} href="/articles">Articles</a>
-    <!-- <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle dark mode">☾</button> -->
-    </nav>
+
+    <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle dark mode">☾</button>
+  </nav>
 </header>
-
-
 
 <script is:inline>
   const key = "theme";
   const root = document.documentElement;
   const btn = document.getElementById("themeToggle");
 
-  // Apply saved theme early
   const saved = localStorage.getItem(key);
   if (saved === "dark") root.classList.add("dark");
   if (saved === "light") root.classList.remove("dark");
@@ -35,5 +33,3 @@ const current = Astro.url.pathname;
     syncIcon();
   });
 </script>
-
-

@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EntryGrid from "../../components/EntryGrid.astro";
+import { getCollection } from "astro:content";
+
+const entries = (await getCollection("entries"))
+  .filter(e => !e.data.draft && e.data.type === "fiction")
+  .sort((a,b) => (b.data.curated ? 1 : 0) - (a.data.curated ? 1 : 0) || b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Fiction">
+  <EntryGrid title="Fiction" description="Experiments in narrative, scenes, and novel attempts." entries={entries} />
+</BaseLayout>

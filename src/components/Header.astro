@@ -1,16 +1,22 @@
 ---
 const current = Astro.url.pathname;
+const active = (p) => current === p || current.startsWith(p + "/");
 ---
+
+
 
 <header class="site-header">
   <nav class="nav">
-    <a class:list={["nav-link", current === "/" && "active"]} href="/">Home</a>
-    <a class:list={["nav-link", current.startsWith("/ideas") && "active"]} href="/ideas">Ideas</a>
-    <a class:list={["nav-link", current.startsWith("/articles") && "active"]} href="/articles">Articles</a>
+    <a class:list={["nav-link", active("/notebook") && "active"]} href="/notebook">Notebook</a>
+    <a class:list={["nav-link", active("/sketchbook") && "active"]} href="/sketchbook">Sketchbook</a>
+    <a class:list={["nav-link", active("/projects") && "active"]} href="/projects">Projects</a>
+    <a class:list={["nav-link", active("/essays") && "active"]} href="/essays">Essays</a>
+    <a class:list={["nav-link", active("/fiction") && "active"]} href="/fiction">Fiction</a>
 
     <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle dark mode">☾</button>
   </nav>
 </header>
+
 
 <script is:inline>
   const key = "theme";

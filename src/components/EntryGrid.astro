@@ -1,0 +1,31 @@
+---
+const { title, description, entries } = Astro.props;
+
+const label = (t:string) =>
+  ({ sketch:"Sketchbook", project:"Project", essay:"Essay", fiction:"Fiction", note:"Note" }[t] ?? t);
+---
+
+<h1>{title}</h1>
+{description && <p>{description}</p>}
+
+<div class="grid">
+  {entries.map(e => (
+    <div class="card">
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+        {e.data.curated && <span class="pill">★ Curated</span>}
+        <span class="pill">{label(e.data.type)}</span>
+        <span class="pill">{e.data.date.toISOString().slice(0,10)}</span>
+      </div>
+
+      <h2 style="margin: 0 0 8px;">
+        <a href={`/entries/${e.slug}`}>{e.data.title}</a>
+      </h2>
+
+      {e.data.summary && <p>{e.data.summary}</p>}
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        {(e.data.tags ?? []).slice(0,5).map(t => <span class="pill">{t}</span>)}
+      </div>
+    </div>
+  ))}
+</div>

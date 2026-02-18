@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("entries");
+  return entries.filter(e => !e.data.draft).map(e => ({ params: { slug: e.slug } }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntry("entries", slug);
+
+if (!entry || entry.data.draft) throw new Error("Not found");
+const { Content } = await entry.render();
+
+const meta = [
+  entry.data.date.toISOString().slice(0,10),
+  entry.data.type.toUpperCase(),
+  ...(entry.data.tags ?? []),
+].join(" · ");
+---
+
+<BaseLayout title={entry.data.title}>
+  <div class="prose">
+    <div class="meta-line">{meta}</div>
+    <h1 style="margin: 6px 0 10px;">{entry.data.title}</h1>
+    {entry.data.summary && <p>{entry.data.summary}</p>}
+
+    <article class="card">
+      <Content />
+    </article>
+  </div>
+</BaseLayout>

@@ -12,7 +12,7 @@ const { title = "Jason P. Dicker" } = Astro.props;
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="/favicon.svg" />
 
-    <style>
+    <style is:global>
       /* ---------- Theme tokens ---------- */
 
 :root{
@@ -266,8 +266,34 @@ a:hover{
 .theme-btn:hover {
   transform: scale(1.08);
 }
-.site-header{ outline: 3px solid red; }
-.nav{ outline: 3px solid blue; }
+.prose{
+  max-width: 68ch;
+}
+
+.prose h2{
+  margin-top: 24px;
+  font-size: 20px;
+}
+
+.prose p{
+  margin: 14px 0;
+}
+
+.meta-line{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  margin: 10px 0 14px;
+}
+
+hr{
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+
     </style>
   </head>
 

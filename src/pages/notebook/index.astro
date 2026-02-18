@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EntryGrid from "../../components/EntryGrid.astro";
+import { getCollection } from "astro:content";
+
+const entries = (await getCollection("entries"))
+  .filter(e => !e.data.draft)
+  .sort((a, b) => {
+    const ac = a.data.curated ? 1 : 0;
+    const bc = b.data.curated ? 1 : 0;
+    if (ac !== bc) return bc - ac;
+    return b.data.date.valueOf() - a.data.date.valueOf();
+  });
+---
+
+<BaseLayout title="Notebook">
+  <EntryGrid
+    title="Notebook"
+    description="Curated highlights first, then the full log."
+    entries={entries}
+  />
+</BaseLayout>

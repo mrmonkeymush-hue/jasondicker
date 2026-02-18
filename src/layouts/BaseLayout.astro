@@ -138,9 +138,9 @@ a:hover{
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 1px solid var(--border);
   backdrop-filter: blur(16px);
-  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border-bottom: 1px solid var(--border);
 }
 
 .site-header-inner{
@@ -154,12 +154,13 @@ a:hover{
   column-gap: 22px;
 }
 
-.nav{
-  justify-self: end;              /* forces nav to the right edge */
+.nav {
+  width: 100%;
+  padding: 18px 40px;
+
   display: flex;
+  justify-content: space-evenly;   /* evenly across screen */
   align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;
 }
 
 
@@ -172,13 +173,13 @@ a:hover{
 
 
 .nav-link {
-  position: relative;
-  text-decoration: none;
+  text-align: center;
   font-weight: 500;
   font-size: 15px;
+  padding: 8px 0;
   color: var(--muted);
-  padding: 6px 0;
-  transition: color 0.2s ease;
+  position: relative;
+  transition: color .2s ease;
 }
 
 /* animated underline */

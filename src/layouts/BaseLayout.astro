@@ -1,6 +1,6 @@
 ---
 import Header from "../components/Header.astro";
-const { title = "Your Name" } = Astro.props;
+const { title = "Jason P. Dicker" } = Astro.props;
 ---
 
 <!doctype html>
@@ -14,7 +14,7 @@ const { title = "Your Name" } = Astro.props;
 
     <style>
       /* ---------- Theme tokens ---------- */
-  /* ---------- Theme tokens ---------- */
+
 :root{
   /* airy lab palette */
   --bg: #fbfcfe;
@@ -151,6 +151,7 @@ a:hover{
   align-items: center;
   justify-content: space-between; /* brand left, nav right */
   gap: 18px;
+  min-width: 0;
 }
 
 .brand-link {
@@ -162,6 +163,7 @@ a:hover{
 
 .nav {
   margin-left: auto;              /* forces nav to the right */
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 18px;

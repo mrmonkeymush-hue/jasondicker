@@ -1,5 +1,6 @@
 ---
-const { title } = Astro.props;
+import Header from "../components/Header.astro";
+const { title = "Your Name" } = Astro.props;
 ---
 
 <!doctype html>
@@ -7,57 +8,196 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Jason P. Dicker - {title}</title>
+    <title>{title}</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" />
+
     <style>
-      :root {
+      /* ---------- Theme tokens ---------- */
+      :root{
+        --bg: #ffffff;
+        --fg: #111111;
+        --muted: rgba(0,0,0,.62);
+        --card: #ffffff;
+        --border: #e7e7e7;
+        --shadow: 0 10px 30px rgba(0,0,0,.06);
+        --accent: #111111;
+        --pill: rgba(0,0,0,.06);
         font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 2rem;
+      }
+      :root.dark{
+        --bg: #0b0c10;
+        --fg: #f2f3f5;
+        --muted: rgba(255,255,255,.68);
+        --card: #11131a;
+        --border: rgba(255,255,255,.10);
+        --shadow: 0 10px 30px rgba(0,0,0,.35);
+        --accent: #f2f3f5;
+        --pill: rgba(255,255,255,.08);
+      }
+
+      /* Auto-dark if user prefers it AND they haven’t chosen explicitly */
+      @media (prefers-color-scheme: dark) {
+        :root:not(.dark):not(.light-manual) { }
+      }
+
+      body{
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
         line-height: 1.6;
       }
-      a { text-decoration: none; }
-      h1 { margin-bottom: 0.2rem; }
-      .meta { opacity: 0.6; font-size: 0.9rem; }
-      .card {
-        border: 1px solid #e5e5e5;
-        padding: 1rem;
-        border-radius: 10px;
-        margin-bottom: 1rem;
-      }
-      footer {
-        margin-top: 4rem;
-        opacity: 0.6;
-        font-size: 0.9rem;
-      }
-      nav {
-        display: flex;
-        gap: 1.5rem;
-        margin-bottom: 2rem;
+
+      .wrap{
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 0 18px 64px;
       }
 
-      nav a {
+      .page{
+        padding-top: 22px;
+      }
+
+      a { color: inherit; }
+      p { color: var(--muted); }
+
+      .card{
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+      }
+
+      .grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 14px;
+      }
+
+      .pill{
+        display:inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--pill);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* ---------- Header styles ---------- */
+      .site-header{
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+        background: color-mix(in srgb, var(--bg) 80%, transparent);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 18px;
+      }
+      .site-header > *{
+        max-width: 980px;
+        margin: 0 auto;
+      }
+      .brand{
+        display:flex;
+        align-items: baseline;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .brand-link{
+        font-weight: 800;
         text-decoration: none;
-        font-weight: 500;
-        opacity: 0.7;
+        letter-spacing: -0.02em;
+      }
+      .brand-sub{
+        color: var(--muted);
+        font-size: 13px;
       }
 
-      nav a:hover {
-        opacity: 1;
+      .nav{
+        display:flex;
+        align-items:center;
+        gap: 14px;
+      }
+      .nav-link{
+        text-decoration:none;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        color: var(--muted);
+      }
+      .nav-link:hover{
+        border-color: var(--border);
+        color: var(--fg);
+      }
+      .nav-link.active{
+        border-color: var(--border);
+        color: var(--fg);
+        font-weight: 700;
       }
 
+      .theme-btn{
+        margin-left: auto;
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--fg);
+        border-radius: 12px;
+        padding: 8px 10px;
+        cursor: pointer;
+      }
+
+      .dropdown{
+        position: relative;
+      }
+      .dropdown > button{
+        cursor:pointer;
+        background: transparent;
+        border: 1px solid transparent;
+        font: inherit;
+      }
+      .dropdown-menu{
+        position:absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        min-width: 180px;
+        padding: 8px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        box-shadow: var(--shadow);
+        display:none;
+      }
+      .dropdown-menu a{
+        display:block;
+        padding: 8px 10px;
+        border-radius: 10px;
+        text-decoration:none;
+        color: var(--muted);
+      }
+      .dropdown-menu a:hover{
+        background: var(--pill);
+        color: var(--fg);
+      }
+      .dropdown:hover .dropdown-menu{
+        display:block;
+      }
+
+      footer{
+        margin-top: 56px;
+        color: var(--muted);
+        font-size: 13px;
+      }
     </style>
   </head>
+
   <body>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/ideas">Ideas</a>
-    <a href="/articles">Articles</a>
-  </nav>
-    <slot />
-    <footer>
-      © {new Date().getFullYear()} Jason P Dicker — Built with Astro.
-    </footer>
+    <Header />
+    <div class="wrap page">
+      <slot />
+      <footer>
+        © {new Date().getFullYear()} Your Name — built as a living notebook.
+      </footer>
+    </div>
   </body>
 </html>
-

@@ -1,0 +1,54 @@
+---
+const current = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="brand">
+    <a href="/" class="brand-link">Your Name</a>
+    <span class="brand-sub">Inventions & Notes</span>
+  </div>
+
+  <nav class="nav">
+    <a class:list={["nav-link", current === "/" && "active"]} href="/">Home</a>
+    <a class:list={["nav-link", current.startsWith("/ideas") && "active"]} href="/ideas">Ideas</a>
+
+    <div class="dropdown">
+      <button class:list={["nav-link", current.startsWith("/articles") && "active"]} type="button">
+        Articles <span class="chev">▾</span>
+      </button>
+      <div class="dropdown-menu">
+        <a href="/articles">All Articles</a>
+        <a href="/articles/tags">Tags</a>
+      </div>
+    </div>
+
+    <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle dark mode">
+      ☾
+    </button>
+  </nav>
+</header>
+
+<script is:inline>
+  const key = "theme";
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggle");
+
+  // Apply saved theme early
+  const saved = localStorage.getItem(key);
+  if (saved === "dark") root.classList.add("dark");
+  if (saved === "light") root.classList.remove("dark");
+
+  function syncIcon() {
+    const isDark = root.classList.contains("dark");
+    btn.textContent = isDark ? "☀" : "☾";
+  }
+  syncIcon();
+
+  btn.addEventListener("click", () => {
+    root.classList.toggle("dark");
+    localStorage.setItem(key, root.classList.contains("dark") ? "dark" : "light");
+    syncIcon();
+  });
+</script>
+
+

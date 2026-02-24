@@ -1,7 +1,7 @@
 ---
-title: "Utopia"
+title: "Ocean City"
 date: 2026-02-12
-type: "fiction"
+type: "project"
 draft: false
 ---
 

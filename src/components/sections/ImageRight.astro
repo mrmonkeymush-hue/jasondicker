@@ -1,0 +1,21 @@
+---
+const { section } = Astro.props;
+const { Content } = await section.render();
+---
+
+<section class="section">
+  <div class="wrap">
+    <div class="body">
+      {section.data.title && <h2>{section.data.title}</h2>}
+      <Content />
+    </div>
+    {section.data.image && (
+      <img src={section.data.image} alt={section.data.imageAlt ?? ""} loading="lazy" />
+    )}
+  </div>
+</section>
+
+<style>
+  .wrap { display: grid; gap: 1.5rem; grid-template-columns: 2fr 1fr; align-items: start; }
+  img { width: 100%; height: auto; border-radius: 12px; }
+</style>

@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+
+import TextOnly from "../../../components/sections/TextOnly.astro";
+import ImageLeft from "../../../components/sections/ImageLeft.astro";
+import ImageRight from "../../../components/sections/ImageRight.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("entries");
+  return entries
+    .filter((e) => !e.data.draft)
+    .map((e) => ({
+      params: {
+        type: e.data.type, // "project" | "essay" | ...
+        slug: e.slug,      // "ocean-city"
+      },
+    }));
+}
+
+const { type, slug } = Astro.params;
+
+const entries = await getCollection("entries");
+const entry = entries.find((e) => e.slug === slug && e.data.type === type);
+
+if (!entry) return new Response("Not found", { status: 404 });
+
+const { Content: EntryContent } = await entry.render();
+
+// Sections: pick ONE of these conventions:
+
+// A) sections grouped by type + slug (recommended for neatness)
+// src/content/sections/project/ocean-city/001-intro.md
+const allSections = await getCollection("sections");
+const sectionPrefix = `${type}/${slug}/`;
+const sections = allSections
+  .filter((s) => s.id.startsWith(sectionPrefix))
+  .filter((s) => !s.data.draft)
+  .sort((a, b) => (a.data.order ?? 9999) - (b.data.order ?? 9999));
+
+const layoutMap = {
+  textOnly: TextOnly,
+  imageLeft: ImageLeft,
+  imageRight: ImageRight,
+} as const;
+---
+
+<article>
+  <header>
+    <h1>{entry.data.title}</h1>
+    <p><small>{entry.data.date.toLocaleDateString("en-AU")}</small></p>
+  </header>
+
+  <EntryContent />
+
+  {sections.map((section) => {
+    const key = section.data.layout ?? "textOnly";
+    const Cmp = layoutMap[key] ?? TextOnly;
+    return <Cmp section={section} />;
+  })}
+</article>

@@ -1,0 +1,9 @@
+---
+const { section } = Astro.props;
+const { Content } = await section.render();
+---
+
+<section class="section">
+  {section.data.title && <h2>{section.data.title}</h2>}
+  <Content />
+</section>

@@ -1,3 +1,6 @@
+
+export const SECTION_LAYOUTS = ["textOnly", "imageLeft", "imageRight"] as const;
+export type SectionLayout = typeof SECTION_LAYOUTS[number];
 import { defineCollection, z } from "astro:content";
 
 const entries = defineCollection({
@@ -13,4 +16,27 @@ const entries = defineCollection({
   }),
 });
 
-export const collections = { entries };
+const sections = defineCollection({
+  schema: z.object({
+    // optional heading per section
+    title: z.string().optional(),
+
+    // choose one: order or timestamp; order is simplest
+    order: z.number().optional(),
+    // timestamp: z.date().optional(),
+
+    // layout selector
+    layout: z
+      .enum(SECTION_LAYOUTS)
+      .default("textOnly"),
+
+    // section-level image options
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
+
+    // section-level flags if you want them
+    draft: z.boolean().optional(),
+  }),
+});
+
+export const collections = { entries, sections };

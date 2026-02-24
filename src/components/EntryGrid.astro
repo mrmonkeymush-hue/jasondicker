@@ -9,7 +9,7 @@ const label = (t:string) =>
 {description && <p>{description}</p>}
 
 <div class="grid">
-  {entries.map(e => (
+  {entries.map((e: { data: { curated: any; type: string; date: { toISOString: () => string | any[]; }; title: unknown; summary: unknown; tags: any; }; slug: any; }) => (
     <div class="card">
       <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
         {e.data.curated && <span class="pill">★ Curated</span>}
@@ -18,13 +18,13 @@ const label = (t:string) =>
       </div>
 
       <h2 style="margin: 0 0 8px;">
-        <a href={`/entries/${e.slug}`}>{e.data.title}</a>
+        <a href={`/entries/${e.data.type}/${e.slug}`}>{e.data.title}</a>
       </h2>
 
       {e.data.summary && <p>{e.data.summary}</p>}
 
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        {(e.data.tags ?? []).slice(0,5).map(t => <span class="pill">{t}</span>)}
+        {(e.data.tags ?? []).slice(0,5).map((t: unknown) => <span class="pill">{t}</span>)}
       </div>
     </div>
   ))}

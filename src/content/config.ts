@@ -13,11 +13,16 @@ const entries = defineCollection({
     curated: z.boolean().optional(),     // ⭐ your “best” flag
     draft: z.boolean().optional(),
     heroImage: z.string().optional(),
+    comments: z.boolean().optional(),
   }),
 });
 
 const sections = defineCollection({
   schema: z.object({
+    // for CMS metadata (optional to avoid breaking existing content)
+    type: z.enum(["sketch", "project", "essay", "fiction", "note"]).optional(),
+    entrySlug: z.string().optional(),
+
     // optional heading per section
     title: z.string().optional(),
 

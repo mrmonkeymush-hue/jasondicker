@@ -1,0 +1,42 @@
+backend:
+  name: github
+  repo: "https://github.com/mrmonkeymush-hue/jasondicker" # TODO: replace with your GitHub org/repo
+  branch: "main"     # TODO: replace if using a different branch
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "entries"
+    label: "Entries"
+    folder: "src/content/entries"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+      - { label: "Type", name: "type", widget: "select", options: ["sketch", "project", "essay", "fiction", "note"] }
+      - { label: "Summary", name: "summary", widget: "string", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Curated", name: "curated", widget: "boolean", required: false, default: false }
+      - { label: "Draft", name: "draft", widget: "boolean", required: false, default: false }
+      - { label: "Hero Image", name: "heroImage", widget: "string", required: false }
+      - { label: "Comments Enabled", name: "comments", widget: "boolean", required: false, default: true }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "sections"
+    label: "Sections"
+    folder: "src/content/sections"
+    create: true
+    slug: "{{slug}}"
+    path: "{{type}}/{{entrySlug}}/{{order}}-{{slug}}"
+    fields:
+      - { label: "Type", name: "type", widget: "select", options: ["sketch", "project", "essay", "fiction", "note"] }
+      - { label: "Entry Slug", name: "entrySlug", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", value_type: "int" }
+      - { label: "Layout", name: "layout", widget: "select", options: ["textOnly", "imageLeft", "imageRight"], default: "textOnly" }
+      - { label: "Image", name: "image", widget: "string", required: false }
+      - { label: "Image Alt", name: "imageAlt", widget: "string", required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", required: false, default: false }
+      - { label: "Title", name: "title", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }

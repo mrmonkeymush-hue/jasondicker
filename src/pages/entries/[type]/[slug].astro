@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import TextOnly from "../../../components/sections/TextOnly.astro";
 import ImageLeft from "../../../components/sections/ImageLeft.astro";
 import ImageRight from "../../../components/sections/ImageRight.astro";
+import Comments from "../../../components/Comments.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("entries");
@@ -25,6 +26,7 @@ const entry = entries.find((e) => e.slug === slug && e.data.type === type);
 if (!entry) return new Response("Not found", { status: 404 });
 
 const { Content: EntryContent } = await entry.render();
+const commentsEnabled = entry.data.comments !== false;
 
 // Sections: pick ONE of these conventions:
 
@@ -57,4 +59,6 @@ const layoutMap = {
     const Cmp = layoutMap[key] ?? TextOnly;
     return <Cmp section={section} />;
   })}
+
+  {commentsEnabled && <Comments />}
 </article>

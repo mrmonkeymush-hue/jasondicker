@@ -22,7 +22,8 @@ collections:
       - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Curated", name: "curated", widget: "boolean", required: false, default: false }
       - { label: "Draft", name: "draft", widget: "boolean", required: false, default: false }
-      - { label: "Hero Image", name: "heroImage", widget: "string", required: false }
+      - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
+      - { label: "Hero Image Alt", name: "heroImageAlt", widget: "string", required: false }
       - { label: "Comments Enabled", name: "comments", widget: "boolean", required: false, default: true }
       - { label: "Body", name: "body", widget: "markdown" }
 
@@ -37,7 +38,7 @@ collections:
       - { label: "Entry Slug", name: "entrySlug", widget: "string" }
       - { label: "Order", name: "order", widget: "number", value_type: "int" }
       - { label: "Layout", name: "layout", widget: "select", options: ["textOnly", "imageLeft", "imageRight"], default: "textOnly" }
-      - { label: "Image", name: "image", widget: "string", required: false }
+      - { label: "Image", name: "image", widget: "image", required: false }
       - { label: "Image Alt", name: "imageAlt", widget: "string", required: false }
       - { label: "Draft", name: "draft", widget: "boolean", required: false, default: false }
       - { label: "Title", name: "title", widget: "string", required: false }

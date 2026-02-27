@@ -1,4 +1,7 @@
 ---
+
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
 import { getCollection } from "astro:content";
 
 import TextOnly from "../../../components/sections/TextOnly.astro";
@@ -45,12 +48,22 @@ const layoutMap = {
   imageRight: ImageRight,
 } as const;
 ---
-
-<article>
+<BaseLayout>
+<article class="content">
   <header>
     <h1>{entry.data.title}</h1>
     <p><small>{entry.data.date.toLocaleDateString("en-AU")}</small></p>
   </header>
+
+{entry.data.heroImage && (
+  <div class="hero-image">
+    <img
+      src={entry.data.heroImage}
+      alt={entry.data.heroImageAlt ?? entry.data.title}
+      loading="lazy"
+    />
+  </div>
+)}
 
   <EntryContent />
 
@@ -62,3 +75,4 @@ const layoutMap = {
 
   {commentsEnabled && <Comments />}
 </article>
+</BaseLayout>

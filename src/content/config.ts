@@ -13,6 +13,7 @@ const entries = defineCollection({
     curated: z.boolean().optional(),     // ⭐ your “best” flag
     draft: z.boolean().optional(),
     heroImage: z.string().optional(),
+    heroImageAlt: z.string().optional(),
     comments: z.boolean().optional(),
   }),
 });

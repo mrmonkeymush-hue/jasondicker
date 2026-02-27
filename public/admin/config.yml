@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: "https://github.com/mrmonkeymush-hue/jasondicker" # TODO: replace with your GitHub org/repo
+  repo: "mrmonkeymush-hue/jasondicker" # TODO: replace with your GitHub org/repo
   branch: "main"     # TODO: replace if using a different branch
 
 media_folder: "public/uploads"

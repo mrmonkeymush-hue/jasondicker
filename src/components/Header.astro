@@ -7,12 +7,25 @@ const active = (p: string) => current === p || current.startsWith(p + "/");
 
 <header class="site-header">
   <nav class="nav">
-    <a class:list={["nav-link", active("/entries/notebook") && "active"]} href="/entries/notebook">Notebook</a>
-    <a class:list={["nav-link", active("/entries/sketchbook") && "active"]} href="/entries/sketchbook">Sketchbook</a>
-    <a class:list={["nav-link", active("/entries/project") && "active"]} href="/entries/project">Projects</a>
-    <a class:list={["nav-link", active("/entries/essay") && "active"]} href="/entries/essay">Essays</a>
-    <a class:list={["nav-link", active("/entries/fiction") && "active"]} href="/entries/fiction">Fiction</a>
+<a class:list={["nav-link", active("/services") && "active"]} href="/services">
+  Services
+</a>
 
+<a class:list={["nav-link", active("/systems") && "active"]} href="/systems">
+  Systems
+</a>
+
+<a class:list={["nav-link", active("/case-studies") && "active"]} href="/case-studies">
+  Case Studies
+</a>
+
+<a class:list={["nav-link", active("/writing") && "active"]} href="/writing">
+  Writing
+</a>
+
+<a class:list={["nav-link", active("/contact") && "active"]} href="/contact">
+  Contact
+</a>
     <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle dark mode">☾</button>
   </nav>
 </header>
